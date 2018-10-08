@@ -1,0 +1,61 @@
+skimap {
+    -fx-padding: 3;
+    -fx-background-color: white;
+}
+
+
+.skimap .CH {
+    -fx-fill: #e8f4fd;
+    -fx-stroke: #899aa7;
+}
+
+.skimap .TI {
+    -fx-fill: #d6e1ff;
+}
+.skimap .TI:hover {
+    -fx-fill: #5e5e5e;
+}
+
+.skimap .GR {
+    -fx-fill: #d6e1ff;
+}
+.skimap .GR:hover {
+    -fx-fill: #5e5e5e;
+}
+
+.skimap .INNER {
+    -fx-fill: #d6e1ff;
+}
+.skimap .INNER:hover {
+    -fx-fill: #5e5e5e;
+}
+
+.skimap .VDVS {
+     -fx-fill: #d6e1ff;
+}
+.skimap .VDVS:hover {
+    -fx-fill: #5e5e5e;
+}
+
+.skimap .BE {
+    -fx-fill: #d6e1ff;
+}
+.skimap .BE:hover {
+     -fx-fill: #5e5e5e;
+ }
+
+.skimap .selected {
+    -fx-fill: #0c10a8;
+}
+.skimap .selected:hover {
+    -fx-fill: #5e5e5e;
+}
+
+.skimap .label {
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-font-size: 32px;
+    -fx-text-fill: black;
+}
+
+
