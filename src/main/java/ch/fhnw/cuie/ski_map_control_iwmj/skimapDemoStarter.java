@@ -12,11 +12,9 @@ public class skimapDemoStarter extends Application {
 
         DemoPM pm = new DemoPM(); // Instanz des Presentationmodels
 
-
         Parent rootPanel = new DemoUI(pm);
 
         Scene scene = new Scene(rootPanel);
-
         primaryStage.setTitle("skimap custom control - homework iw, mj");
         primaryStage.setScene(scene);
         primaryStage.setWidth(400);

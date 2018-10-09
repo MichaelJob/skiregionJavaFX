@@ -3,7 +3,10 @@ package ch.fhnw.cuie.ski_map_control_iwmj;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Polygon;
@@ -31,13 +34,14 @@ public class skimap extends Region {
     private Polygon VDVS;
     private SVGPath INNER;
     private SVGPath BE;
-    private Label regionName;
+    private TextField regionName;
+
 
     //all properties
     private StringProperty skiregion = new SimpleStringProperty();
 
-    private Pane drawingPane;
-
+    private BorderPane drawingPane;
+    private Pane map;
 
     private static double sizeFactor() {
         return PREFERRED_SIZE / ARTBOARD_SIZE;
@@ -49,7 +53,6 @@ public class skimap extends Region {
         initializeParts();
         initializeDrawingPane();
         layoutParts();
-        setupBindings();
         setupEventHandler();
         setupValueChangeListener();
     }
@@ -117,6 +120,7 @@ public class skimap extends Region {
         CH.setContent(getSVGStrings("CHsvg"));
         CH.getStyleClass().addAll("CH");
 
+        // ToDo: Remove css Classes if not used
         INNER = new SVGPath();
         INNER.setContent(getSVGStrings("INNERsvg"));
         INNER.getStyleClass().addAll("INNER");
@@ -137,15 +141,17 @@ public class skimap extends Region {
         VDVS.getPoints().addAll(getPolygonData("VDVSpolygon"));
         VDVS.getStyleClass().addAll("VDVS");
 
-        regionName = new Label();
+        regionName = new TextField();
         regionName.setPrefSize(PREFERRED_SIZE * 0.5, PREFERRED_SIZE * 0.075);
-        regionName.getStyleClass().addAll("label");
+        regionName.getStyleClass().addAll("regionName");
         regionName.setMouseTransparent(true);
 
+        map = new Pane();
+        map.getChildren().addAll(CH, GR, TI, INNER, BE, VDVS);
     }
 
     private void initializeDrawingPane() {
-        drawingPane = new Pane();
+        drawingPane = new BorderPane();
         drawingPane.setMaxSize(PREFERRED_SIZE, PREFERRED_SIZE);
         drawingPane.setMinSize(PREFERRED_SIZE, PREFERRED_SIZE);
         drawingPane.setPrefSize(PREFERRED_SIZE, PREFERRED_SIZE);
@@ -153,15 +159,17 @@ public class skimap extends Region {
     }
 
     private void layoutParts() {
-        drawingPane.getChildren().addAll(CH, GR, TI, INNER, BE, VDVS, regionName);
+
+        drawingPane.setCenter(map);
+        drawingPane.setTop(regionName);
+
         getChildren().add(drawingPane);
     }
 
-    private void setupBindings(){
-        regionName.textProperty().bind(skiregionProperty());
-    }
-
     private void setupEventHandler() {
+        skiregionProperty().addListener((observable, oldValue, newValue) -> {
+            regionName.setText(newValue);
+        });
 
         CH.setOnMouseClicked(event -> {
             setSkiregion("Nordschweiz");

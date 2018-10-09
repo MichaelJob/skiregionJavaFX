@@ -3,46 +3,23 @@ skimap {
     -fx-background-color: white;
 }
 
+.skimap SVGPath,
+.skimap Polygon {
+    -fx-stroke: #899aa7;
+    -fx-stroke-width: 1px;
+    -fx-fill: #d6e1ff;
+}
+
+.skimap SVGPath:hover,
+.skimap Polygon:hover {
+    -fx-cursor: hand;
+    -fx-fill: #5e5e5e;
+}
 
 .skimap .CH {
     -fx-fill: #e8f4fd;
     -fx-stroke: #899aa7;
 }
-
-.skimap .TI {
-    -fx-fill: #d6e1ff;
-}
-.skimap .TI:hover {
-    -fx-fill: #5e5e5e;
-}
-
-.skimap .GR {
-    -fx-fill: #d6e1ff;
-}
-.skimap .GR:hover {
-    -fx-fill: #5e5e5e;
-}
-
-.skimap .INNER {
-    -fx-fill: #d6e1ff;
-}
-.skimap .INNER:hover {
-    -fx-fill: #5e5e5e;
-}
-
-.skimap .VDVS {
-     -fx-fill: #d6e1ff;
-}
-.skimap .VDVS:hover {
-    -fx-fill: #5e5e5e;
-}
-
-.skimap .BE {
-    -fx-fill: #d6e1ff;
-}
-.skimap .BE:hover {
-     -fx-fill: #5e5e5e;
- }
 
 .skimap .selected {
     -fx-fill: #0c10a8;
@@ -51,11 +28,14 @@ skimap {
     -fx-fill: #5e5e5e;
 }
 
-.skimap .label {
-    -fx-text-alignment: center;
+.skimap .regionName {
+    -fx-text-alignment: left;
     -fx-alignment: center;
     -fx-font-size: 32px;
     -fx-text-fill: black;
+    -fx-text-box-border: transparent;
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
 }
 
 
