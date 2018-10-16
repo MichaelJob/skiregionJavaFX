@@ -34,6 +34,7 @@ public class skimap extends Region {
     private Polygon VDVS;
     private SVGPath INNER;
     private SVGPath BE;
+    private SVGPath OST;
     private TextField regionName;
 
 
@@ -129,6 +130,10 @@ public class skimap extends Region {
         BE.setContent(getSVGStrings("BEsvg"));
         BE.getStyleClass().addAll("BE");
 
+        OST = new SVGPath();
+        OST.setContent(getSVGStrings("OSTsvg"));
+        OST.getStyleClass().addAll("OST");
+
         GR = new Polygon();
         GR.getPoints().addAll(getPolygonData("GRpolygon"));
         GR.getStyleClass().addAll("GR");
@@ -147,7 +152,7 @@ public class skimap extends Region {
         regionName.setMouseTransparent(true);
 
         map = new Pane();
-        map.getChildren().addAll(CH, GR, TI, INNER, BE, VDVS);
+        map.getChildren().addAll(CH, GR, TI, INNER, BE, OST, VDVS);
     }
 
     private void initializeDrawingPane() {
@@ -207,6 +212,12 @@ public class skimap extends Region {
             BE.getStyleClass().addAll("selected");
         });
 
+        OST.setOnMouseClicked(event -> {
+            setSkiregion("Ostschweiz");
+            removeSelected();
+            OST.getStyleClass().addAll("selected");
+        });
+
     }
 
     private void removeSelected(){
@@ -215,6 +226,7 @@ public class skimap extends Region {
         CH.getStyleClass().remove("selected");
         GR.getStyleClass().remove("selected");
         BE.getStyleClass().remove("selected");
+        OST.getStyleClass().remove("selected");
         VDVS.getStyleClass().remove("selected");
     }
 
