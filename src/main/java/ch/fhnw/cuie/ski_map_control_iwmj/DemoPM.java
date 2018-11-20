@@ -5,7 +5,7 @@ import javafx.beans.property.StringProperty;
 
 public class DemoPM {
 
-    private StringProperty skiregion = new SimpleStringProperty("Skiregion");
+    private StringProperty skiregion = new SimpleStringProperty("Tessin");
 
     public String getSkiregion() {
         return skiregion.get();
