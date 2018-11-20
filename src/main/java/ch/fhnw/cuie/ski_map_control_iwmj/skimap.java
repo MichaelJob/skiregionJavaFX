@@ -54,6 +54,7 @@ public class skimap extends Region {
         layoutParts();
         setupEventHandler();
         setupValueChangeListener();
+        setupBindings();
     }
 
     private void initializeSizes() {
@@ -176,6 +177,7 @@ public class skimap extends Region {
 
         });
 
+
         clearIcon.setOnMouseClicked(event -> {
             setSkiregion("");
             removeSelected();
@@ -259,6 +261,10 @@ public class skimap extends Region {
     private void setupValueChangeListener() {
 
 
+    }
+
+    private void setupBindings() {
+        regionName.textProperty().bindBidirectional(skiregionProperty());
     }
 
     @Override
