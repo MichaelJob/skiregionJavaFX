@@ -22,7 +22,7 @@ skimap {
 }
 
 .skimap .selected {
-    -fx-fill: #0c10a8;
+    -fx-fill: rgba(10, 12, 125, 0.75);
 }
 .skimap .selected:hover {
     -fx-fill: #5e5e5e;

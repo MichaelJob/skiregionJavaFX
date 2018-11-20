@@ -25,7 +25,6 @@ public class skimap extends Region {
     private static final double MINIMUM_SIZE = ARTBOARD_SIZE * 0.25;   // 1/4 of preferred
     private static final double MAXIMUM_SIZE = ARTBOARD_SIZE * 2;      // twice the preferred
 
-
     private SVGPath CH;
     private Polygon GR;
     private Polygon TI;
@@ -127,27 +126,21 @@ public class skimap extends Region {
         //TODO: Remove css Classes if not used (commented out now)
         INNER = new SVGPath();
         INNER.setContent(getSVGStrings("INNERsvg"));
-        //INNER.getStyleClass().addAll("INNER");
 
         BE = new SVGPath();
         BE.setContent(getSVGStrings("BEsvg"));
-        //BE.getStyleClass().addAll("BE");
 
         OST = new SVGPath();
         OST.setContent(getSVGStrings("OSTsvg"));
-        //OST.getStyleClass().addAll("OST");
 
         GR = new Polygon();
         GR.getPoints().addAll(getPolygonData("GRpolygon"));
-        //GR.getStyleClass().addAll("GR");
 
         TI = new Polygon();
         TI.getPoints().addAll(getPolygonData("TIpolygon"));
-        //TI.getStyleClass().addAll("TI");
 
         VDVS = new Polygon();
         VDVS.getPoints().addAll(getPolygonData("VDVSpolygon"));
-        //VDVS.getStyleClass().addAll("VDVS");
 
         regionName = new TextField();
         regionName.setPrefSize(PREFERRED_SIZE * 0.5, PREFERRED_SIZE * 0.075);
@@ -179,6 +172,8 @@ public class skimap extends Region {
     private void setupEventHandler() {
         skiregionProperty().addListener((observable, oldValue, newValue) -> {
             regionName.setText(newValue);
+            setSelectedRegion(newValue);
+
         });
 
         clearIcon.setOnMouseClicked(event -> {
@@ -188,46 +183,66 @@ public class skimap extends Region {
 
         CH.setOnMouseClicked(event -> {
             setSkiregion("Nordschweiz/FR/GE");
-            removeSelected();
-            CH.getStyleClass().addAll("selected");
+            setSelectedRegion("Nordschweiz/FR/GE");
         });
 
         GR.setOnMouseClicked(event -> {
             setSkiregion("Graubünden");
-            removeSelected();
-            GR.getStyleClass().addAll("selected");
+            setSelectedRegion("Graubünden");
         });
 
         INNER.setOnMouseClicked(event -> {
             setSkiregion("Innerschweiz");
-            removeSelected();
-            INNER.getStyleClass().addAll("selected");
+            setSelectedRegion("Innerschweiz");
         });
 
         TI.setOnMouseClicked(event -> {
             setSkiregion("Tessin");
-            removeSelected();
-            TI.getStyleClass().addAll("selected");
+            setSelectedRegion("Tessin");
         });
 
         VDVS.setOnMouseClicked(event -> {
             setSkiregion("Waadt & Wallis");
-            removeSelected();
-            VDVS.getStyleClass().addAll("selected");
+            setSelectedRegion("Waadt & Wallis");
         });
 
         BE.setOnMouseClicked(event -> {
             setSkiregion("Bern");
-            removeSelected();
-            BE.getStyleClass().addAll("selected");
+            setSelectedRegion("Bern");
         });
 
         OST.setOnMouseClicked(event -> {
             setSkiregion("Ostschweiz");
-            removeSelected();
-            OST.getStyleClass().addAll("selected");
+            setSelectedRegion("Ostschweiz");
         });
 
+    }
+
+    private void setSelectedRegion(String region) {
+        removeSelected();
+        switch (region) {
+            case "Ostschweiz":
+                OST.getStyleClass().addAll("selected");
+                break;
+            case "Bern":
+                BE.getStyleClass().addAll("selected");
+                break;
+            case "Waadt & Wallis":
+                VDVS.getStyleClass().addAll("selected");
+                break;
+            case  "Tessin":
+                TI.getStyleClass().addAll("selected");
+                break;
+            case "Innerschweiz":
+                INNER.getStyleClass().addAll("selected");
+                break;
+            case "Graubünden":
+                GR.getStyleClass().addAll("selected");
+                break;
+            case "Nordschweiz/FR/GE":
+                CH.getStyleClass().addAll("selected");
+                break;
+        }
     }
 
     private void removeSelected(){

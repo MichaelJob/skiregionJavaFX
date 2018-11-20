@@ -30,7 +30,7 @@ public class DemoUI extends BorderPane {
     }
 
     private void setupBinding() {
-        pm.skiregionProperty().bindBidirectional(skimap.skiregionProperty());
+        skimap.skiregionProperty().bindBidirectional(pm.skiregionProperty());
     }
 
 
