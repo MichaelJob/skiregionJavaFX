@@ -38,4 +38,9 @@ skimap {
     -fx-cursor: hand;
 }
 
+.skimap .clear{
+    -fx-font-size: 14px;
+    -fx-text-fill: grey;
+    -fx-cursor: hand;
+}
 

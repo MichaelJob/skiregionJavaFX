@@ -6,9 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.SVGPath;
 
@@ -36,12 +34,13 @@ public class skimap extends Region {
     private SVGPath BE;
     private SVGPath OST;
     private TextField regionName;
-
+    private Label clearIcon;
 
     //all properties
     private StringProperty skiregion = new SimpleStringProperty();
 
     private BorderPane drawingPane;
+    private HBox topHBox;
     private Pane map;
 
     private static double sizeFactor() {
@@ -117,34 +116,38 @@ public class skimap extends Region {
     private void initializeParts() {
         double center = getPrefWidth() * 0.5;
 
+        topHBox = new HBox();
+        clearIcon = new Label("             x");
+        clearIcon.getStyleClass().addAll("clear");
+
         CH = new SVGPath();
         CH.setContent(getSVGStrings("CHsvg"));
         CH.getStyleClass().addAll("CH");
 
-        // ToDo: Remove css Classes if not used
+        //TODO: Remove css Classes if not used (commented out now)
         INNER = new SVGPath();
         INNER.setContent(getSVGStrings("INNERsvg"));
-        INNER.getStyleClass().addAll("INNER");
+        //INNER.getStyleClass().addAll("INNER");
 
         BE = new SVGPath();
         BE.setContent(getSVGStrings("BEsvg"));
-        BE.getStyleClass().addAll("BE");
+        //BE.getStyleClass().addAll("BE");
 
         OST = new SVGPath();
         OST.setContent(getSVGStrings("OSTsvg"));
-        OST.getStyleClass().addAll("OST");
+        //OST.getStyleClass().addAll("OST");
 
         GR = new Polygon();
         GR.getPoints().addAll(getPolygonData("GRpolygon"));
-        GR.getStyleClass().addAll("GR");
+        //GR.getStyleClass().addAll("GR");
 
         TI = new Polygon();
         TI.getPoints().addAll(getPolygonData("TIpolygon"));
-        TI.getStyleClass().addAll("TI");
+        //TI.getStyleClass().addAll("TI");
 
         VDVS = new Polygon();
         VDVS.getPoints().addAll(getPolygonData("VDVSpolygon"));
-        VDVS.getStyleClass().addAll("VDVS");
+        //VDVS.getStyleClass().addAll("VDVS");
 
         regionName = new TextField();
         regionName.setPrefSize(PREFERRED_SIZE * 0.5, PREFERRED_SIZE * 0.075);
@@ -165,8 +168,10 @@ public class skimap extends Region {
 
     private void layoutParts() {
 
+        topHBox.getChildren().addAll(regionName, clearIcon);
+        topHBox.setHgrow(regionName, Priority.ALWAYS);
+        drawingPane.setTop(topHBox);
         drawingPane.setCenter(map);
-        drawingPane.setTop(regionName);
 
         getChildren().add(drawingPane);
     }
@@ -176,8 +181,13 @@ public class skimap extends Region {
             regionName.setText(newValue);
         });
 
+        clearIcon.setOnMouseClicked(event -> {
+            setSkiregion("");
+            removeSelected();
+        });
+
         CH.setOnMouseClicked(event -> {
-            setSkiregion("Nordschweiz");
+            setSkiregion("Nordschweiz/FR/GE");
             removeSelected();
             CH.getStyleClass().addAll("selected");
         });
