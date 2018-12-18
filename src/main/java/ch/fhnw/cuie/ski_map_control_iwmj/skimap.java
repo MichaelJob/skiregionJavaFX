@@ -149,7 +149,7 @@ public class skimap extends Region {
                 "Bern",
                 "Tessin",
                 "Graubünden",
-                "Waadt/Wallis",
+                "Waadt & Wallis",
                 "Ostschweiz",
                 "Innerschweiz",
                 "Nordschweiz/FR/GE"
