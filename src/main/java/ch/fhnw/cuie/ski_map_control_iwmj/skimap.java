@@ -2,9 +2,12 @@ package ch.fhnw.cuie.ski_map_control_iwmj;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Polygon;
@@ -32,8 +35,7 @@ public class skimap extends Region {
     private SVGPath INNER;
     private SVGPath BE;
     private SVGPath OST;
-    private TextField regionName;
-    private Label clearIcon;
+    private ComboBox<String> skiregionDropdown;
 
     //all properties
     private StringProperty skiregion = new SimpleStringProperty();
@@ -117,14 +119,11 @@ public class skimap extends Region {
         double center = getPrefWidth() * 0.5;
 
         topHBox = new HBox();
-        clearIcon = new Label("             x");
-        clearIcon.getStyleClass().addAll("clear");
 
         CH = new SVGPath();
         CH.setContent(getSVGStrings("CHsvg"));
         CH.getStyleClass().addAll("CH");
 
-        //TODO: Remove css Classes if not used (commented out now)
         INNER = new SVGPath();
         INNER.setContent(getSVGStrings("INNERsvg"));
 
@@ -143,10 +142,21 @@ public class skimap extends Region {
         VDVS = new Polygon();
         VDVS.getPoints().addAll(getPolygonData("VDVSpolygon"));
 
-        regionName = new TextField();
-        regionName.setPrefSize(PREFERRED_SIZE * 0.5, PREFERRED_SIZE * 0.075);
-        regionName.getStyleClass().addAll("regionName");
-        regionName.setMouseTransparent(true);
+        skiregionDropdown = new ComboBox<String>();
+        skiregionDropdown.setPrefSize(PREFERRED_SIZE * 1.0, PREFERRED_SIZE * 0.075);
+        skiregionDropdown.getStyleClass().addAll("skiregionDropdown");
+        skiregionDropdown.getItems().addAll(
+                "Bern",
+                "Tessin",
+                "Graubünden",
+                "Waadt/Wallis",
+                "Ostschweiz",
+                "Innerschweiz",
+                "Nordschweiz/FR/GE"
+        );
+        skiregionDropdown.setPromptText("Skiregion");
+        skiregionDropdown.setEditable(true);
+        skiregionDropdown.setValue(getSkiregion());
 
         map = new Pane();
         map.getChildren().addAll(CH, GR, TI, INNER, BE, OST, VDVS);
@@ -162,8 +172,8 @@ public class skimap extends Region {
 
     private void layoutParts() {
 
-        topHBox.getChildren().addAll(regionName, clearIcon);
-        topHBox.setHgrow(regionName, Priority.ALWAYS);
+        topHBox.getChildren().addAll(skiregionDropdown);
+        topHBox.setHgrow(skiregionDropdown, Priority.ALWAYS);
         drawingPane.setTop(topHBox);
         drawingPane.setCenter(map);
 
@@ -171,16 +181,9 @@ public class skimap extends Region {
     }
 
     private void setupEventHandler() {
-        skiregionProperty().addListener((observable, oldValue, newValue) -> {
-            regionName.setText(newValue);
-            setSelectedRegion(newValue);
 
-        });
-
-
-        clearIcon.setOnMouseClicked(event -> {
-            setSkiregion("");
-            removeSelected();
+        skiregionDropdown.setOnAction((event) -> {
+            setSkiregion(skiregionDropdown.getSelectionModel().getSelectedItem());
         });
 
         CH.setOnMouseClicked(event -> {
@@ -259,12 +262,14 @@ public class skimap extends Region {
 
 
     private void setupValueChangeListener() {
-
-
+        skiregionProperty().addListener((observable, oldValue, newValue) -> {
+            skiregionDropdown.setValue(newValue);
+            setSelectedRegion(newValue);
+        });
     }
 
     private void setupBindings() {
-        regionName.textProperty().bindBidirectional(skiregionProperty());
+
     }
 
     @Override

@@ -28,15 +28,26 @@ skimap {
     -fx-fill: #5e5e5e;
 }
 
-.skimap .regionName {
+.skimap .skiregionDropdown {
     -fx-text-alignment: left;
     -fx-alignment: center;
-    -fx-font-size: 32px;
+    -fx-font-size: 30px;
     -fx-text-fill: black;
     -fx-text-box-border: transparent;
     -fx-background-color: transparent;
     -fx-cursor: hand;
 }
+
+
+.skimap .skiregionDropdown .list-cell
+{
+    -fx-background: white;
+    -fx-background-color: transparent;
+    -fx-text-fill: #899aa7;
+    -fx-padding: 3 0 2 7;
+    -fx-cell-size: 1.66667em;
+}
+
 
 .skimap .clear{
     -fx-font-size: 14px;
