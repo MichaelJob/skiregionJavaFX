@@ -1,4 +1,4 @@
-package ch.fhnw.cuie.ski_map_control_iwmj;
+package ch.fhnw.cuie.skiregion_cc;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

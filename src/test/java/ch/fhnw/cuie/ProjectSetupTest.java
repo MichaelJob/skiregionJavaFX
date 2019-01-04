@@ -2,7 +2,7 @@ package ch.fhnw.cuie;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Dieter Holz
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ProjectSetupTest {
 
     @Test
-    void testJunitConfiguration(){
+    void testJunitConfiguration() {
         //given
 
         //when

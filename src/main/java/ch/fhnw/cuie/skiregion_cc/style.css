@@ -1,34 +1,34 @@
-skimap {
+skiregioncontrol {
     -fx-padding: 3;
     -fx-background-color: white;
 }
 
-.skimap SVGPath,
-.skimap Polygon {
+.skiregioncontrol SVGPath,
+.skiregioncontrol Polygon {
     -fx-stroke: #899aa7;
     -fx-stroke-width: 1px;
     -fx-fill: #d6e1ff;
 }
 
-.skimap SVGPath:hover,
-.skimap Polygon:hover {
+.skiregioncontrol SVGPath:hover,
+.skiregioncontrol Polygon:hover {
     -fx-cursor: hand;
     -fx-fill: #5e5e5e;
 }
 
-.skimap .CH {
+.skiregioncontrol .CH {
     -fx-fill: #e8f4fd;
     -fx-stroke: #899aa7;
 }
 
-.skimap .selected {
+.skiregioncontrol .selected {
     -fx-fill: rgba(10, 12, 125, 0.75);
 }
-.skimap .selected:hover {
+.skiregioncontrol .selected:hover {
     -fx-fill: #5e5e5e;
 }
 
-.skimap .skiregionDropdown {
+.skiregioncontrol .skiregionDropdown {
     -fx-text-alignment: left;
     -fx-alignment: center;
     -fx-font-size: 30px;
@@ -38,15 +38,14 @@ skimap {
     -fx-cursor: hand;
 }
 
-.skimap .skiregionDropdown .combo-box-popup > .list-view {
+.skiregioncontrol .skiregionDropdown .combo-box-popup > .list-view {
     -fx-pref-width: 330;
     -fx-background-color: #e8f4fd;
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 12, 0.0 , 0 , 8 );
 }
 
-.skimap .skiregionDropdown .list-cell
-{
+.skiregioncontrol .skiregionDropdown .list-cell {
     -fx-background: white;
     -fx-background-color: transparent;
     -fx-text-fill: #899aa7;
@@ -55,7 +54,7 @@ skimap {
 }
 
 
-.skimap .clear{
+.skiregioncontrol .clear {
     -fx-font-size: 14px;
     -fx-text-fill: grey;
     -fx-cursor: hand;

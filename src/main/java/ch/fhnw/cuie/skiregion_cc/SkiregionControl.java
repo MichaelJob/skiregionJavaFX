@@ -1,14 +1,9 @@
-package ch.fhnw.cuie.ski_map_control_iwmj;
+package ch.fhnw.cuie.skiregion_cc;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.event.Event;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.SVGPath;
@@ -16,17 +11,22 @@ import javafx.scene.shape.SVGPath;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class skimap extends Region {
-    //artboard in sketch is 500*500
-    private static final double ARTBOARD_SIZE = 500;
+/**
+ * CustomControl with combobox to select a SkiregionControl
+ * Selected region is shown on CH map. Mouse hoover over map and click to select region.
+ * Map shows region highlighted if known CH region is set. Helps to visualize where it is.
+ *
+ * @author Dieter Holz (template)
+ * @author Ina Widmer, Michael Job (custom control SkiregionControl)
+ */
 
+public class SkiregionControl extends Region {
+    private static final double ARTBOARD_SIZE = 500;
     private static final double PREFERRED_SIZE = ARTBOARD_SIZE;
-    private static final double MINIMUM_SIZE = ARTBOARD_SIZE * 0.25;   // 1/4 of preferred
-    private static final double MAXIMUM_SIZE = ARTBOARD_SIZE * 2;      // twice the preferred
+    private static final double MINIMUM_SIZE = ARTBOARD_SIZE * 0.25;
+    private static final double MAXIMUM_SIZE = ARTBOARD_SIZE * 2;
 
     private SVGPath CH;
     private Polygon GR;
@@ -37,18 +37,17 @@ public class skimap extends Region {
     private SVGPath OST;
     private ComboBox<String> skiregionDropdown;
 
-    //all properties
-    private StringProperty skiregion = new SimpleStringProperty();
-
     private BorderPane drawingPane;
     private HBox topHBox;
     private Pane map;
+
+    private StringProperty skiregion = new SimpleStringProperty();
 
     private static double sizeFactor() {
         return PREFERRED_SIZE / ARTBOARD_SIZE;
     }
 
-    public skimap() {
+    public SkiregionControl() {
         initializeSizes();
         initializeSelf();
         initializeParts();
@@ -56,7 +55,6 @@ public class skimap extends Region {
         layoutParts();
         setupEventHandler();
         setupValueChangeListener();
-        setupBindings();
     }
 
     private void initializeSizes() {
@@ -78,7 +76,7 @@ public class skimap extends Region {
     }
 
     private String getSVGStrings(String filename) {
-        URL url = getClass().getResource("./chdata/"+filename + ".txt");
+        URL url = getClass().getResource("./chdata/" + filename + ".txt");
         File file = new File(url.getPath());
         Scanner sc = null;
         try {
@@ -94,7 +92,7 @@ public class skimap extends Region {
 
     private Double[] getPolygonData(String filename) {
         Double[] result;
-        URL url = getClass().getResource("./chdata/"+filename + ".txt");
+        URL url = getClass().getResource("./chdata/" + filename + ".txt");
         File file = new File(url.getPath());
         Scanner sc = null;
         try {
@@ -167,7 +165,7 @@ public class skimap extends Region {
         drawingPane.setMaxSize(PREFERRED_SIZE, PREFERRED_SIZE);
         drawingPane.setMinSize(PREFERRED_SIZE, PREFERRED_SIZE);
         drawingPane.setPrefSize(PREFERRED_SIZE, PREFERRED_SIZE);
-        drawingPane.getStyleClass().add("skimap");
+        drawingPane.getStyleClass().add("skiregioncontrol");
     }
 
     private void layoutParts() {
@@ -188,42 +186,42 @@ public class skimap extends Region {
 
         CH.setOnMouseClicked(event -> {
             setSkiregion("Nordschweiz/FR/GE");
-            setSelectedRegion("Nordschweiz/FR/GE");
+            setSelectedarea("Nordschweiz/FR/GE");
         });
 
         GR.setOnMouseClicked(event -> {
             setSkiregion("Graubünden");
-            setSelectedRegion("Graubünden");
+            setSelectedarea("Graubünden");
         });
 
         INNER.setOnMouseClicked(event -> {
             setSkiregion("Innerschweiz");
-            setSelectedRegion("Innerschweiz");
+            setSelectedarea("Innerschweiz");
         });
 
         TI.setOnMouseClicked(event -> {
             setSkiregion("Tessin");
-            setSelectedRegion("Tessin");
+            setSelectedarea("Tessin");
         });
 
         VDVS.setOnMouseClicked(event -> {
             setSkiregion("Waadt & Wallis");
-            setSelectedRegion("Waadt & Wallis");
+            setSelectedarea("Waadt & Wallis");
         });
 
         BE.setOnMouseClicked(event -> {
             setSkiregion("Bern");
-            setSelectedRegion("Bern");
+            setSelectedarea("Bern");
         });
 
         OST.setOnMouseClicked(event -> {
             setSkiregion("Ostschweiz");
-            setSelectedRegion("Ostschweiz");
+            setSelectedarea("Ostschweiz");
         });
 
     }
 
-    private void setSelectedRegion(String region) {
+    private void setSelectedarea(String region) {
         removeSelected();
         switch (region) {
             case "Ostschweiz":
@@ -235,7 +233,7 @@ public class skimap extends Region {
             case "Waadt & Wallis":
                 VDVS.getStyleClass().addAll("selected");
                 break;
-            case  "Tessin":
+            case "Tessin":
                 TI.getStyleClass().addAll("selected");
                 break;
             case "Innerschweiz":
@@ -250,7 +248,7 @@ public class skimap extends Region {
         }
     }
 
-    private void removeSelected(){
+    private void removeSelected() {
         INNER.getStyleClass().remove("selected");
         TI.getStyleClass().remove("selected");
         CH.getStyleClass().remove("selected");
@@ -264,13 +262,10 @@ public class skimap extends Region {
     private void setupValueChangeListener() {
         skiregionProperty().addListener((observable, oldValue, newValue) -> {
             skiregionDropdown.setValue(newValue);
-            setSelectedRegion(newValue);
+            setSelectedarea(newValue);
         });
     }
 
-    private void setupBindings() {
-
-    }
 
     @Override
     protected void layoutChildren() {
@@ -294,7 +289,6 @@ public class skimap extends Region {
     }
 
     // all Getter and Setter
-
 
     public String getSkiregion() {
         return skiregion.get();

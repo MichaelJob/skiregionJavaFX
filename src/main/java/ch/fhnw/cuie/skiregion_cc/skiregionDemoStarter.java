@@ -1,11 +1,11 @@
-package ch.fhnw.cuie.ski_map_control_iwmj;
+package ch.fhnw.cuie.skiregion_cc;
 
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class skimapDemoStarter extends Application {
+public class skiregionDemoStarter extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -15,7 +15,7 @@ public class skimapDemoStarter extends Application {
         Parent rootPanel = new DemoUI(pm);
 
         Scene scene = new Scene(rootPanel);
-        primaryStage.setTitle("skimap custom control - homework iw, mj");
+        primaryStage.setTitle("SkiregionControl Demo");
         primaryStage.setScene(scene);
         primaryStage.setWidth(400);
         primaryStage.setHeight(400);
